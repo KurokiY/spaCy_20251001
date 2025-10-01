@@ -1,0 +1,8 @@
+import spacy
+
+nlp = spacy.load("en_core_web_sm")
+doc = nlp("San Francisco considers banning sidewalk delivery robots")
+
+# document level
+ents = [(e.text, e.start_char, e.end_char, e.label_) for e in doc.ents]
+print(ents)
