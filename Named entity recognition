@@ -6,3 +6,8 @@ doc = nlp("San Francisco considers banning sidewalk delivery robots")
 # document level
 ents = [(e.text, e.start_char, e.end_char, e.label_) for e in doc.ents]
 print(ents)
+
+#Text: The original entity text.
+#Start: Index of start of entity in the Doc.
+#End: Index of end of entity in the Doc.
+#Label: Entity label, i.e. type.
