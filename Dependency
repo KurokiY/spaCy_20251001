@@ -1,0 +1,28 @@
+!pip install cairosvg
+
+import spacy
+import cairosvg
+import pandas as pd
+from google.colab import files
+
+nlp = spacy.load('en_core_web_sm')
+
+sentence = "I hope to have good dinner tonight."
+doc = nlp(sentence)
+
+rows = []
+for token in doc:
+    rows.append({"Text": token.text, "Lemma": token.lemma_, "POS": token.pos_, "Tag": token.tag_, "Dep": token.dep_, "Shape": token.shape_, "IsAlpha": token.is_alpha, "IsStop": token.is_stop})
+
+df = pd.DataFrame(rows)
+print(df)
+
+df.to_excel("Output.xlsx", index=False)
+files.download("Output.xlsx")
+
+from spacy import displacy
+displacy.render(doc, style = 'dep')
+svg = displacy.render(doc, style = 'dep', jupyter = False)
+
+cairosvg.svg2png(bytestring=svg.encode("utf-8"), write_to="dependency.png")
+files.download("dependency.png")
